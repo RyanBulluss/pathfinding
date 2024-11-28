@@ -6,7 +6,7 @@ function createGrid(height, width) {
         let row = [];
         for (let j = 0; j < width; j++) {
             row.push({
-                content: "clear"
+                status: "clear"
             })
         }
         arr.push(row)

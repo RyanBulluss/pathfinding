@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Cell = () => {
+const Cell = ({ toggleWall, yIdx, xIdx, cell }) => {
   return (
-    <div className='border'></div>
+    <div
+      className='border'
+      onMouseOver={() => toggleWall(yIdx, xIdx)}
+      style={{ backgroundColor: cell.status === "wall" ? "black" : "" }}  
+    ></div>
   )
 }
 
