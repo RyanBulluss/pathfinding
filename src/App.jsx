@@ -10,9 +10,13 @@ function App() {
   function toggleWall(yIdx, xIdx) {
     if (!mouseDown) return;
     const newState = [...state];
-    newState[yIdx][xIdx].status =
-      newState[yIdx][xIdx].status === "wall" ? "clear" : "wall";
-    console.log("hello");
+    newState[yIdx][xIdx].status = mouseDown;
+    setState(newState);
+  }
+
+  function toggleOneWall(yIdx, xIdx, cell) {
+    const newState = [...state];
+    newState[yIdx][xIdx].status = cell.status === "clear" ? "wall" : "clear";
     setState(newState);
   }
 
@@ -25,7 +29,6 @@ function App() {
       <div className="flex justify-center items-center bg-slate-800 h-[90vh] select-none">
         <div
           className="grid grid-cols-20  h-[60vh] w-[60vh] bg-slate-400 items-stretch"
-          onMouseDown={() => setMouseDown(true)}
         >
           {state.map((row, yIdx) =>
             row.map((cell, xIdx) => (
@@ -34,6 +37,9 @@ function App() {
                 yIdx={yIdx}
                 xIdx={xIdx}
                 cell={cell}
+                mouseDown={mouseDown}
+                setMouseDown={setMouseDown}
+                toggleOneWall={toggleOneWall}
               />
             ))
           )}
