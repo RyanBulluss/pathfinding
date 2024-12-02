@@ -11,6 +11,8 @@ function createGrid(height, width) {
         }
         arr.push(row)
     }
+    arr[0][0].status = "start";
+    arr[19][19].status = "end";
     return arr;
 }
 

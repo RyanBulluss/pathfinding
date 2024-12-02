@@ -6,17 +6,43 @@ import { useState } from "react";
 function App() {
   const [state, setState] = useState(createGrid(20, 20));
   const [mouseDown, setMouseDown] = useState(false);
+  const [checkPoints, setCheckPoints] = useState({start: {x:0, y:0}, end: {x:19, y:19}})
+
+  function toggleCell(yIdx, xIdx) {
+    if (!mouseDown) return;
+    if (mouseDown === "clear" || "wall") toggleWall(yIdx, xIdx);
+    if (mouseDown === "start" || "end") moveCheckpoint(yIdx, xIdx);
+
+    
+  }
 
   function toggleWall(yIdx, xIdx) {
-    if (!mouseDown) return;
     const newState = [...state];
-    newState[yIdx][xIdx].status = mouseDown;
+    const status = newState[yIdx][xIdx].status
+    if (status === "clear" || status === "wall") {
+      newState[yIdx][xIdx].status = mouseDown;
+    }
+    setState(newState);
+  }
+
+  function moveCheckpoint(yIdx, xIdx) {
+    const newState = [...state];
+    const status = newState[yIdx][xIdx].status
+    if (status === "clear" || status === "wall") {
+      newState[yIdx][xIdx].status = mouseDown;
+    }
     setState(newState);
   }
 
   function toggleOneWall(yIdx, xIdx, cell) {
     const newState = [...state];
-    newState[yIdx][xIdx].status = cell.status === "clear" ? "wall" : "clear";
+
+    
+    const status = newState[yIdx][xIdx].status
+    if (status === "clear" || status === "wall") {
+      newState[yIdx][xIdx].status = status === "clear" ? "wall" : "clear";
+    }
+
     setState(newState);
   }
 
@@ -33,7 +59,7 @@ function App() {
           {state.map((row, yIdx) =>
             row.map((cell, xIdx) => (
               <Cell
-                toggleWall={toggleWall}
+                toggleCell={toggleCell}
                 yIdx={yIdx}
                 xIdx={xIdx}
                 cell={cell}
