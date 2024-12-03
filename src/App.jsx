@@ -10,8 +10,8 @@ function App() {
 
   function toggleCell(yIdx, xIdx) {
     if (!mouseDown) return;
-    if (mouseDown === "clear" || "wall") toggleWall(yIdx, xIdx);
-    if (mouseDown === "start" || "end") moveCheckpoint(yIdx, xIdx);
+    if (mouseDown === "clear" || mouseDown === "wall") toggleWall(yIdx, xIdx);
+    if (mouseDown === "start" || mouseDown === "end") moveCheckpoint(yIdx, xIdx);
 
     
   }
@@ -31,18 +31,26 @@ function App() {
     if (status === "clear" || status === "wall") {
       newState[yIdx][xIdx].status = mouseDown;
     }
+    if (status === "start" || status === "end") return;
+    newState[checkPoints[mouseDown].y][checkPoints[mouseDown].x].status = "clear";
+    setCheckPoints(points => {
+      const newPoints = {...points};
+      newPoints[mouseDown] = {x: xIdx, y: yIdx}
+      return newPoints;
+    })
     setState(newState);
   }
 
-  function toggleOneWall(yIdx, xIdx, cell) {
+  function toggleOneWall(yIdx, xIdx) {
     const newState = [...state];
+    const status = newState[yIdx][xIdx].status
 
     
-    const status = newState[yIdx][xIdx].status
     if (status === "clear" || status === "wall") {
       newState[yIdx][xIdx].status = status === "clear" ? "wall" : "clear";
     }
-
+    
+    setMouseDown(newState[yIdx][xIdx].status);
     setState(newState);
   }
 

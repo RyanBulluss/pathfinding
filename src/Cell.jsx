@@ -7,8 +7,7 @@ const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOne
       onMouseOver={() => toggleCell(yIdx, xIdx)}
       onMouseDown={() => {
         if (!mouseDown) {
-          toggleOneWall(yIdx, xIdx, cell)
-          setMouseDown(cell.status);
+          toggleOneWall(yIdx, xIdx)
         }
       }}
       style={{ backgroundColor: cell.status === "wall" ? "black" :
