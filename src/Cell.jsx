@@ -12,6 +12,8 @@ const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOne
       }}
       style={{ backgroundColor: cell.status === "wall" ? "black" :
           cell.status === "end" ? "red" :
+          cell.status === "searched" ? "yellow" :
+          cell.status === "route" ? "green" :
          cell.status === "start" ? "blue" : "" }}  
     ></div>
   )

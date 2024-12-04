@@ -16,6 +16,14 @@ function createGrid(height, width) {
     return arr;
 }
 
+const directions = [
+    {x: 1, y: 0},
+    {x: 0, y: 1},
+    {x: 0, y: -1},
+    {x: -1, y: 0},
+]
+
 export {
-    createGrid
+    createGrid,
+    directions
 }

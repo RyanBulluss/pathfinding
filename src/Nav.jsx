@@ -1,6 +1,6 @@
 
 
-const Nav = () => {
+const Nav = ({ setFinding }) => {
 
 
     return (
@@ -8,7 +8,7 @@ const Nav = () => {
             <button>Algorithm</button>
             <button>Maze</button>
             <button>Clear</button>
-            <button>Start</button>
+            <button onClick={() => setFinding(f => !f)}>Start</button>
         </nav>
     )
 }
