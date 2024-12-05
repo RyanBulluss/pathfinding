@@ -12,6 +12,19 @@ function App() {
   });
   const [paths, setPaths] = useState([]);
   const [finding, setFinding] = useState(false);
+  const [showingPath, setShowingPath] = useState(false);
+
+  function resetState() {
+    setState(createGrid(20, 20));
+    setMouseDown(false);
+    setCheckPoints({
+      start: { x: 0, y: 0 },
+      end: { x: 19, y: 19 },
+    });
+    setPaths([]);
+    setFinding(false);
+    setShowingPath(false);
+  }
   
   function toggleCell(yIdx, xIdx) {
     if (!mouseDown) return;
@@ -95,10 +108,11 @@ function App() {
 
       if (foundPath) {
         setPaths([foundPath]);
-        foundPath.forEach((p, idx) => {
-          if (idx !== 0 && idx !== foundPath.length - 1)
-          newState[p.y][p.x].status = "route"
-        })
+        setShowingPath(foundPath);
+        // foundPath.forEach((p, idx) => {
+        //   if (idx !== 0 && idx !== foundPath.length - 1)
+        //   newState[p.y][p.x].status = "route"
+        // })
         setFinding(false)
         console.log("Path found")
       } else {
@@ -119,12 +133,33 @@ function App() {
     };
   }, [paths, state, finding]);
 
+  useEffect(() => {
+    if (!showingPath) return;
+    const interval = setInterval(() => {
+      if (showingPath.length < 3) return setShowingPath(false)
+      const p = showingPath[1];
+      const newState = [...state];
+      newState[p.y][p.x].status = "route";
+      setState(newState);
+      setShowingPath(sp => {
+        const newPath = [...showingPath];
+        newPath.splice(1 , 1);
+        return newPath;
+      })
+      
+    }, [10]);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [paths, state, finding, showingPath]);
+
   return (
     <div
       className="min-h-[100vh] bg-slate-200"
       onMouseUp={() => setMouseDown(false)}
     >
-      <Nav setFinding={setFinding}></Nav>
+      <Nav setFinding={setFinding} resetState={resetState}></Nav>
       <div className="flex justify-center items-center bg-slate-800 h-[90vh] select-none">
         <div className="grid grid-cols-20  h-[60vh] w-[60vh] bg-slate-400 items-stretch">
           {state.map((row, yIdx) =>

@@ -1,14 +1,14 @@
 
 
-const Nav = ({ setFinding }) => {
+const Nav = ({ setFinding, resetState }) => {
 
 
     return (
-        <nav className="w-full bg-slate-300 h-[10vh] flex justify-around hover:text-gray-500">
-            <button>Algorithm</button>
-            <button>Maze</button>
-            <button>Clear</button>
-            <button onClick={() => setFinding(f => !f)}>Start</button>
+        <nav className="w-full bg-slate-300 h-[10vh] flex justify-around">
+            <button className="hover:text-gray-500">Algorithm</button>
+            <button className="hover:text-gray-500">Maze</button>
+            <button className="hover:text-gray-500" onClick={resetState}>Clear</button>
+            <button className="hover:text-gray-500" onClick={() => setFinding(f => !f)}>Start</button>
         </nav>
     )
 }
