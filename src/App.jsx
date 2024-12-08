@@ -161,7 +161,7 @@ function App() {
     >
       <Nav setFinding={setFinding} resetState={resetState}></Nav>
       <div className="flex justify-center items-center bg-slate-800 h-[90vh] select-none">
-        <div className="grid grid-cols-20  h-[60vh] w-[60vh] bg-slate-400 items-stretch">
+        <div className="grid grid-cols-20 h-[60vh] w-[60vh] bg-slate-400 items-stretch">
           {state.map((row, yIdx) =>
             row.map((cell, xIdx) => (
               <Cell

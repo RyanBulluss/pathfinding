@@ -1,9 +1,11 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOneWall }) => {
   return (
     <div
-      className='border'
+      className='border flex justify-center items-center'
       onMouseOver={() => toggleCell(yIdx, xIdx)}
       onMouseDown={() => {
         if (!mouseDown) {
@@ -11,11 +13,14 @@ const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOne
         }
       }}
       style={{ backgroundColor: cell.status === "wall" ? "black" :
-          cell.status === "end" ? "red" :
+          cell.status === "end" ? "" :
           cell.status === "searched" ? "yellow" :
           cell.status === "route" ? "green" :
-         cell.status === "start" ? "blue" : "" }}  
-    ></div>
+         cell.status === "start" ? "" : "" }}  
+    >
+      {cell.status === "start" &&   <FontAwesomeIcon icon={faArrowRight} className="" />}
+      {cell.status === "end" &&   <FontAwesomeIcon icon={faMapMarkerAlt} className="" />}
+    </div>
   )
 }
 
