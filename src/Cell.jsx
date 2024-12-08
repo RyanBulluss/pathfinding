@@ -18,8 +18,11 @@ const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOne
           cell.status === "route" ? "green" :
          cell.status === "start" ? "" : "" }}  
     >
+      <div className='h-0 flex justify-center items-center'>
+
       {cell.status === "start" &&   <FontAwesomeIcon icon={faArrowRight} className="" />}
       {cell.status === "end" &&   <FontAwesomeIcon icon={faMapMarkerAlt} className="" />}
+      </div>
     </div>
   )
 }
