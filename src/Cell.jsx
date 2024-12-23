@@ -5,7 +5,7 @@ import { faArrowRight, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOneWall }) => {
   return (
     <div
-      className='border flex justify-center items-center'
+      className='border flex justify-center items-center text-white'
       onMouseOver={() => toggleCell(yIdx, xIdx)}
       onMouseDown={() => {
         if (!mouseDown) {
@@ -13,13 +13,12 @@ const Cell = ({ toggleCell, yIdx, xIdx, cell, mouseDown, setMouseDown, toggleOne
         }
       }}
       style={{ backgroundColor: cell.status === "wall" ? "black" :
-          cell.status === "end" ? "" :
+          cell.status === "end" ? "green" :
           cell.status === "searched" ? "yellow" :
           cell.status === "route" ? "green" :
-         cell.status === "start" ? "" : "" }}  
+          cell.status === "start" ? "green" : "" }}  
     >
       <div className='h-0 flex justify-center items-center'>
-
       {cell.status === "start" &&   <FontAwesomeIcon icon={faArrowRight} className="" />}
       {cell.status === "end" &&   <FontAwesomeIcon icon={faMapMarkerAlt} className="" />}
       </div>
